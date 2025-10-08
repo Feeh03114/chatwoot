@@ -10,7 +10,11 @@ export default {
       path: frontendURL('accounts/:accountId/settings/billing'),
       meta: {
         permissions: ['administrator'],
-        installationTypes: [INSTALLATION_TYPES.CLOUD],
+        installationTypes: [
+          INSTALLATION_TYPES.CLOUD,
+          INSTALLATION_TYPES.COMMUNITY,
+          INSTALLATION_TYPES.ENTERPRISE,
+        ],
       },
       component: SettingsWrapper,
       props: {
@@ -24,7 +28,11 @@ export default {
           name: 'billing_settings_index',
           component: Index,
           meta: {
-            installationTypes: [INSTALLATION_TYPES.CLOUD],
+            installationTypes: [
+              INSTALLATION_TYPES.CLOUD,
+              INSTALLATION_TYPES.COMMUNITY,
+              INSTALLATION_TYPES.ENTERPRISE,
+            ],
             permissions: ['administrator'],
           },
         },
@@ -33,7 +41,11 @@ export default {
           name: 'billing_settings_landing',
           component: BillingLanding,
           meta: {
-            installationTypes: [INSTALLATION_TYPES.CLOUD],
+            installationTypes: [
+              INSTALLATION_TYPES.CLOUD,
+              INSTALLATION_TYPES.COMMUNITY,
+              INSTALLATION_TYPES.ENTERPRISE,
+            ],
             permissions: ['administrator'],
           },
         },

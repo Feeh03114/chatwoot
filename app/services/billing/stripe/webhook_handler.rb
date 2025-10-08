@@ -79,7 +79,6 @@ module Billing
           provider: 'stripe',
           seats: metadata_seats(metadata),
           status: 'active',
-          current_period_end: timestamp_to_time(session['expires_at']),
           provider_customer_id: session['customer'],
           provider_subscription_id: session['subscription'],
           metadata: filtered_metadata(metadata)
@@ -182,10 +181,16 @@ module Billing
       def safe_hash(value)
         return {} if value.blank?
 
+        if value.is_a?(String)
+          return JSON.parse(value)
+        rescue JSON::ParserError
+          return {}
+        end
+
         return value.to_h if value.respond_to?(:to_h)
         return value.to_hash if value.respond_to?(:to_hash)
 
-        value
+        {}
       end
     end
   end
