@@ -36,8 +36,14 @@ module Billing
         )
         return if recorder.processed?
 
-        handle_event(event, data)
-        recorder.record!
+        result = nil
+        Billing::WebhookEvent.transaction do
+          recorder.record!
+          result = handle_event(event, data)
+        end
+        result
+      rescue ActiveRecord::RecordNotUnique
+        nil
       rescue JSON::ParserError => e
         raise CustomExceptions::Billing::ProviderError.new(error: 'invalid_payload', detail: e.message)
       end
