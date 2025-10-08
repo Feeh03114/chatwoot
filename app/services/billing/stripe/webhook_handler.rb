@@ -62,7 +62,7 @@ module Billing
         when 'customer.subscription.deleted'
           handle_subscription_event(event, 'canceled')
         when 'customer.subscription.updated'
-          handle_subscription_event(event, 'active')
+          handle_subscription_event(event, status_from_subscription(event.data.object))
         end
       end
 
@@ -191,6 +191,19 @@ module Billing
         return value.to_hash if value.respond_to?(:to_hash)
 
         {}
+      end
+
+      def status_from_subscription(subscription)
+        stripe_status = subscription['status'].to_s
+
+        case stripe_status
+        when 'canceled'
+          'canceled'
+        when 'past_due', 'unpaid', 'incomplete', 'incomplete_expired', 'paused'
+          'past_due'
+        else
+          'active'
+        end
       end
     end
   end
