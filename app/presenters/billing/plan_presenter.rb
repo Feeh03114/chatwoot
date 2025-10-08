@@ -9,9 +9,9 @@ module Billing
     def as_json(_options = {})
       return {} unless plan
 
-      plan.to_h.merge({
-                        id: plan.id
-                      })
+      plan.attributes.symbolize_keys.merge({
+                                             id: plan.id
+                                           })
     end
 
     private
