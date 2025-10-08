@@ -2,6 +2,8 @@
 
 This guide explains how Chatwoot's self-hosted billing extensions integrate with Stripe and Asaas to automate seat allocation, expose reseller workflows, and connect landing page conversions to your workspace limits.
 
+> **Prefer to read in Portuguese?** Confira o documento complementar [Automação de Assentos com Stripe e Asaas](pt_BR/auto_seats_stripe_asaas.md) que descreve o mesmo fluxo passo a passo.
+
 ## Prerequisites
 
 - A Chatwoot workspace running the custom billing stack.
