@@ -93,6 +93,8 @@ en:
       reauthorization:
         generic: 'Failed to reauthorize WhatsApp. Please try again.'
         not_supported: 'Reauthorization is not supported for this type of WhatsApp channel.'
+    billing:
+      provider_error: 'Unable to process billing request at the moment. Please try again later or contact support.'
     inboxes:
       imap:
         socket_error: Please check the network connection, IMAP address and try again.

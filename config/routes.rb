@@ -32,12 +32,14 @@ Rails.application.routes.draw do
     resource :slack_uploads, only: [:show]
   end
 
-  get '/api', to: 'api#index'
-  namespace :api, defaults: { format: 'json' } do
-    namespace :v1 do
-      # ----------------------------------
-      # start of account scoped api routes
-      resources :accounts, only: [:create, :show, :update] do
+    get '/api', to: 'api#index'
+    post '/webhooks/stripe', to: 'webhooks/stripe#create'
+    post '/webhooks/asaas', to: 'webhooks/asaas#create'
+    namespace :api, defaults: { format: 'json' } do
+      namespace :v1 do
+        # ----------------------------------
+        # start of account scoped api routes
+        resources :accounts, only: [:create, :show, :update] do
         member do
           post :update_active_at
           get :cache_keys
@@ -50,6 +52,12 @@ Rails.application.routes.draw do
           resource :bulk_actions, only: [:create]
           resources :agents, only: [:index, :create, :update, :destroy] do
             post :bulk_create, on: :collection
+          end
+          namespace :billing do
+            resource :plan, only: [:show], controller: :plans
+            resource :seat_allocation, only: [:create], controller: :seat_allocations
+            resource :checkout_session, only: [:create], controller: :checkout_sessions
+            resources :reseller_subscriptions, only: [:create]
           end
           namespace :captain do
             resources :assistants do

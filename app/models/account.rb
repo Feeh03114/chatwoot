@@ -97,6 +97,9 @@ class Account < ApplicationRecord
   has_many :webhooks, dependent: :destroy_async
   has_many :whatsapp_channels, dependent: :destroy_async, class_name: '::Channel::Whatsapp'
   has_many :working_hours, dependent: :destroy_async
+  has_many :billing_account_plans, class_name: 'Billing::AccountPlan', dependent: :destroy
+  has_one :active_billing_account_plan, -> { where(status: Billing::AccountPlan.statuses.fetch('active')).ordered },
+          class_name: 'Billing::AccountPlan'
 
   has_one_attached :contacts_export
 
@@ -144,10 +147,27 @@ class Account < ApplicationRecord
   end
 
   def usage_limits
-    {
+    default_limits = {
       agents: ChatwootApp.max_limit.to_i,
       inboxes: ChatwootApp.max_limit.to_i
     }
+
+    plan = active_billing_account_plan || billing_account_plans.ordered.first
+    return default_limits.with_indifferent_access unless plan.present?
+
+    plan_limits = plan.limits
+    merged_limits = default_limits.merge(plan_limits.symbolize_keys)
+    merged_limits.with_indifferent_access
+  end
+
+  def billing_feature_keys
+    plan = active_billing_account_plan || billing_account_plans.ordered.first
+    plan&.feature_keys || []
+  end
+
+  def seats_allocated
+    plan = active_billing_account_plan || billing_account_plans.ordered.first
+    plan&.seats_allocated || ChatwootApp.max_limit.to_i
   end
 
   def locale_english_name
