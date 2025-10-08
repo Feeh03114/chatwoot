@@ -33,13 +33,26 @@ module Billing
     def prioritized_users(current_users, limit)
       removable = []
       agent_scope = current_users.where(role: AccountUser.roles[:agent])
-      removable.concat(agent_scope.limit(limit))
+      removable.concat(agent_scope.limit(limit).to_a)
 
       remaining = limit - removable.length
       return removable if remaining <= 0
 
-      fallback_scope = current_users.where.not(id: removable.map(&:id)).limit(remaining)
-      removable + fallback_scope
+      admin_scope = current_users.where(role: AccountUser.roles[:administrator]).order(created_at: :asc)
+      admins = admin_scope.to_a
+      remaining_admins = admins.size
+
+      admins.each do |admin|
+        break if remaining <= 0
+
+        next if remaining_admins <= 1
+
+        removable << admin
+        remaining_admins -= 1
+        remaining -= 1
+      end
+
+      removable
     end
 
     def refresh_seat_usage
