@@ -108,7 +108,8 @@ module Billing
       def handle_invoice_failed(event, status)
         invoice = event.data.object
         metadata = extract_metadata(invoice)
-        update_plan_from_metadata(invoice, metadata, status)
+        seats = metadata_seats(metadata, invoice_quantity(invoice))
+        update_plan_from_metadata(invoice, metadata, status, seats)
       end
 
       def handle_subscription_event(event, status)
@@ -117,16 +118,17 @@ module Billing
         update_plan_from_metadata(subscription, metadata, status)
       end
 
-      def update_plan_from_metadata(object, metadata, status)
+      def update_plan_from_metadata(object, metadata, status, seats_override = nil)
         account_id = metadata_account_id(metadata)
         plan_code = metadata_plan_code(metadata)
         return unless account_id && plan_code
 
+        seats = seats_override || metadata_seats(metadata, subscription_quantity(object))
         Billing::AccountPlanUpdater.new(
           account_id: account_id,
           plan_code: plan_code,
           provider: 'stripe',
-          seats: metadata_seats(metadata, subscription_quantity(object)),
+          seats: seats,
           status: status,
           current_period_end: timestamp_to_time(object['current_period_end'] || object.dig('period', 'end')),
           provider_customer_id: object['customer'],
@@ -168,6 +170,10 @@ module Billing
 
       def subscription_quantity(resource)
         resource.dig('items', 'data', 0, 'quantity') || resource['quantity']
+      end
+
+      def invoice_quantity(invoice)
+        invoice.dig('lines', 'data', 0, 'quantity')
       end
 
       def timestamp_to_time(timestamp)
