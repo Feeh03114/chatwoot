@@ -98,7 +98,7 @@ class Account < ApplicationRecord
   has_many :whatsapp_channels, dependent: :destroy_async, class_name: '::Channel::Whatsapp'
   has_many :working_hours, dependent: :destroy_async
   has_many :billing_account_plans, class_name: 'Billing::AccountPlan', dependent: :destroy
-  has_one :active_billing_account_plan, -> { where(status: Billing::AccountPlan.statuses[:active]).ordered },
+  has_one :active_billing_account_plan, -> { where(status: Billing::AccountPlan.statuses.fetch('active')).ordered },
           class_name: 'Billing::AccountPlan'
 
   has_one_attached :contacts_export
