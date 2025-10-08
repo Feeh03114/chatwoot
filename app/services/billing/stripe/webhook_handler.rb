@@ -29,9 +29,14 @@ module Billing
         )
         return if recorder.processed?
 
-        result = handle_event(event)
-        recorder.record!
+        result = nil
+        Billing::WebhookEvent.transaction do
+          recorder.record!
+          result = handle_event(event)
+        end
         result
+      rescue ActiveRecord::RecordNotUnique
+        nil
       end
 
       private
