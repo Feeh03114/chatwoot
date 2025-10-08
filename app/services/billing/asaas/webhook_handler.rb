@@ -116,8 +116,15 @@ module Billing
         return if webhook_secret.blank?
 
         expected_signature = OpenSSL::HMAC.hexdigest('sha256', webhook_secret, payload)
-        return if ActiveSupport::SecurityUtils.secure_compare(expected_signature, signature.to_s)
+        provided_signature = signature.to_s
 
+        raise CustomExceptions::Billing::ProviderError.new(error: 'invalid_signature') if provided_signature.blank?
+        raise CustomExceptions::Billing::ProviderError.new(error: 'invalid_signature') if provided_signature.bytesize != expected_signature.bytesize
+
+        return if ActiveSupport::SecurityUtils.secure_compare(expected_signature, provided_signature)
+
+        raise CustomExceptions::Billing::ProviderError.new(error: 'invalid_signature')
+      rescue ArgumentError
         raise CustomExceptions::Billing::ProviderError.new(error: 'invalid_signature')
       end
     end
