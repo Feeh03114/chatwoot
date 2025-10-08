@@ -61,8 +61,7 @@ module Billing
           value: plan.price_cents / 100.0,
           cycle: normalize_cycle(plan.billing_cycle),
           description: plan.name,
-          externalReference: metadata_reference(plan),
-          maxPayments: normalized_seats || plan.agents_included
+          externalReference: metadata_reference(plan)
         }
       end
 
