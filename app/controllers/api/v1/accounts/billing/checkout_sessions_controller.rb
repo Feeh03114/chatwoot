@@ -10,7 +10,7 @@ class Api::V1::Accounts::Billing::CheckoutSessionsController < Api::V1::Accounts
       success_url: checkout_params[:success_url].presence || default_return_url,
       cancel_url: checkout_params[:cancel_url].presence || default_return_url,
       quantity: checkout_params[:quantity],
-      metadata: checkout_params[:metadata].to_h
+      metadata: (checkout_params[:metadata] || {}).to_h
     ).call
 
     render json: { checkout_url: session.url }
