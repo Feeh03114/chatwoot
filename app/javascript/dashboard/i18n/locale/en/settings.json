@@ -397,6 +397,40 @@
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again."
   },
+  "BILLING_LANDING": {
+    "TITLE": "Choose the best Chatwoot plan",
+    "DESCRIPTION": "Provision seats instantly, unlock advanced capabilities, or enable Asaas resale in a single workflow.",
+    "CURRENT_PLAN": {
+      "TITLE": "Current subscription",
+      "NAME": "Plan",
+      "SEATS": "Seats allocated / used",
+      "STATUS": "Status"
+    },
+    "PRICING_TITLE": "Available plans",
+    "PRICING_SUBTITLE": "Pick a plan that fits your team and adjust the number of agents before checkout.",
+    "LOADING": "Loading available plans…",
+    "NO_PLANS": "No billing plans are currently available. Please contact support for assistance.",
+    "SEATS_LABEL": "Seats",
+    "SEATS_HELP": "Each plan includes {count} seats by default. Update if you need additional agents.",
+    "FEATURES_TITLE": "Key features",
+    "ACTIONS": {
+      "CHECKOUT": "Buy with Stripe",
+      "RESALE": "Create Asaas subscription"
+    },
+    "RESELLER_FORM": {
+      "TITLE": "Resell {plan}",
+      "DESCRIPTION": "Generate an Asaas subscription for your customer. We will activate the plan automatically after payment confirmation.",
+      "NAME": "Customer name",
+      "EMAIL": "Customer email",
+      "PHONE": "Phone number",
+      "DOCUMENT": "CPF/CNPJ",
+      "SEATS": "Seats for customer",
+      "PAYMENT_METHOD": "Payment method",
+      "SUBMIT": "Create subscription",
+      "CANCEL": "Cancel"
+    },
+    "SUCCESS_RESELLER": "Reseller subscription created successfully. We'll update the account after payment confirmation."
+  },
   "SECURITY_SETTINGS": {
     "TITLE": "Security",
     "DESCRIPTION": "Manage your account security settings.",
