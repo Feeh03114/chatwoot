@@ -19,10 +19,10 @@ const onClick = () => {
     />
 
     <div
-      class="radar-ping-animation absolute top-0 right-0 -mt-1 -mr-1 rounded-full w-3 h-3 bg-n-brand"
+      class="radar-ping-animation absolute top-0 right-0 -mt-1 -mr-1 rounded-full w-3 h-3 bg-n-iris-9"
     />
     <div
-      class="absolute top-0 right-0 -mt-1 -mr-1 rounded-full w-3 h-3 bg-n-brand opacity-50"
+      class="absolute top-0 right-0 -mt-1 -mr-1 rounded-full w-3 h-3 bg-n-iris-9 opacity-50"
     />
   </div>
 </template>
@@ -54,37 +54,53 @@ const onClick = () => {
   .cta-btn-light {
     background: linear-gradient(
         255.98deg,
-        rgba(161, 87, 246, 0.2) 15.83%,
-        rgba(71, 145, 247, 0.2) 81.39%
+        rgba(0, 192, 164, 0.24) 12%,
+        rgba(34, 244, 0, 0.18) 84%
       ),
-      linear-gradient(0deg, #f2f5f8, #f2f5f8);
+      linear-gradient(
+        0deg,
+        rgb(var(--slate-2)),
+        rgb(var(--slate-2))
+      );
   }
 
   .cta-btn-dark {
     background: linear-gradient(
         255.98deg,
-        rgba(161, 87, 246, 0.2) 15.83%,
-        rgba(71, 145, 247, 0.2) 81.39%
+        rgba(0, 192, 164, 0.24) 12%,
+        rgba(34, 244, 0, 0.18) 84%
       ),
-      linear-gradient(0deg, #313538, #313538);
+      linear-gradient(
+        0deg,
+        rgb(var(--slate-4)),
+        rgb(var(--slate-4))
+      );
   }
 
   .cta-btn-light-hover {
     background: linear-gradient(
         255.98deg,
-        rgba(161, 87, 246, 0.2) 15.83%,
-        rgba(71, 145, 247, 0.2) 81.39%
+        rgba(0, 192, 164, 0.24) 12%,
+        rgba(34, 244, 0, 0.18) 84%
       ),
-      linear-gradient(0deg, #e3e5e7, #e3e5e7);
+      linear-gradient(
+        0deg,
+        rgb(var(--slate-3)),
+        rgb(var(--slate-3))
+      );
   }
 
   .cta-btn-dark-hover {
     background: linear-gradient(
         255.98deg,
-        rgba(161, 87, 246, 0.2) 15.83%,
-        rgba(71, 145, 247, 0.2) 81.39%
+        rgba(0, 192, 164, 0.24) 12%,
+        rgba(34, 244, 0, 0.18) 84%
       ),
-      linear-gradient(0deg, #202425, #202425);
+      linear-gradient(
+        0deg,
+        rgb(var(--slate-6)),
+        rgb(var(--slate-6))
+      );
   }
 
   /* Radar ping animation */

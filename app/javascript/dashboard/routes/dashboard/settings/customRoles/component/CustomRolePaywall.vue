@@ -74,6 +74,48 @@ const tableHeaders = computed(() => {
 
 <template>
   <div class="w-full min-h-[12rem] relative">
+    <div class="w-full text-sm">
+      <table class="w-full border-separate border-spacing-0">
+        <thead class="opacity-30 dark:opacity-30">
+          <tr>
+            <th
+              v-for="thHeader in tableHeaders"
+              :key="thHeader"
+              scope="col"
+              class="py-4 ltr:pr-4 rtl:pl-4 font-semibold text-left text-n-slate-11"
+            >
+              <span class="mb-0">{{ thHeader }}</span>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- Este componente deve renderizar <tr> dentro -->
+          <CustomRoleTableBody
+            class="opacity-25 dark:opacity-20"
+            :roles="dummyCustomRolesData"
+            :loading="{}"
+          />
+        </tbody>
+      </table>
+    </div>
+
+    <div
+      class="absolute inset-0 flex flex-col items-center justify-center w-full h-full bg-gradient-to-t from-white dark:from-slate-900 to-transparent"
+    >
+      <BasePaywallModal
+        feature-prefix="CUSTOM_ROLE"
+        :i18n-key="i18nKey"
+        :is-on-chatwoot-cloud="isOnChatwootCloud"
+        :is-super-admin="isSuperAdmin"
+        @upgrade="goToBillingSettings"
+      />
+    </div>
+  </div>
+</template>
+
+{/* <template>
+  <div class="w-full min-h-[12rem] relative">
     <div class="w-full space-y-3 text-sm">
       <thead class="opacity-30 dark:opacity-30">
         <th
@@ -104,4 +146,4 @@ const tableHeaders = computed(() => {
       />
     </div>
   </div>
-</template>
+</template> */}

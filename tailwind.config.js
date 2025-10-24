@@ -8,6 +8,8 @@ const {
 } = require('@egoist/tailwindcss-icons');
 
 const defaultSansFonts = [
+  'Geist',
+  '"Geist Sans"',
   '-apple-system',
   'system-ui',
   'BlinkMacSystemFont',
